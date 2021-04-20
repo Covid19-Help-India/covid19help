@@ -1,4 +1,5 @@
 import Nav from "../components/nav.js";
+import Footer from "../components/footer.js";
 import Table from "../components/table.js";
 import Head from "next/head";
 
@@ -14,9 +15,12 @@ export default function Home() {
             </Head>
 
             <Nav />
-            <Table />
 
-            <footer></footer>
+            <div style={{ padding: "2rem 10px", maxWidth: "1000px", marginLeft: "auto", marginRight: "auto" }}>
+                <Table />
+            </div>
+
+            <Footer />
         </div>
     );
 }

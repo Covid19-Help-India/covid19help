@@ -7,6 +7,7 @@ export default function Nav() {
         flexDirection: "row",
         alignItems: "center",
         padding: "10px",
+        boxShadow: "0px 0px 8px -4px rgba(0,0,0,1)",
     };
     return (
         <div style={style}>
