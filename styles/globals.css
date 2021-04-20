@@ -5,3 +5,7 @@
 :root {
     font-family: "Roboto", sans-serif;
 }
+.branding-logo:hover,
+.navbar-account:hover {
+    cursor: pointer;
+}
