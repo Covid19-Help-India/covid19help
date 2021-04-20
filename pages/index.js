@@ -1,5 +1,5 @@
-import Nav from "./nav.js";
-import Table from "./table.js";
+import Nav from "../components/nav.js";
+import Table from "../components/table.js";
 import Head from "next/head";
 
 export default function Home() {

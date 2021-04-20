@@ -39,53 +39,54 @@ export default function Table() {
         ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
     };
+
+    const columns = [
+        { title: "Adı", field: "name" },
+        { title: "Soyadı", field: "surname" },
+        { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
+        {
+            title: "Doğum Yeri",
+            field: "birthCity",
+            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+        },
+    ];
+
+    const data = [
+        {
+            name: "Mehmet",
+            surname: "Baran",
+            birthYear: 1987,
+            birthCity: 63,
+        },
+        {
+            name: "Mehmet",
+            surname: "Baran",
+            birthYear: 1987,
+            birthCity: 63,
+        },
+        {
+            name: "Mehmet",
+            surname: "Baran",
+            birthYear: 1986,
+            birthCity: 63,
+        },
+        {
+            name: "Mehmet",
+            surname: "Bn",
+            birthYear: 1985,
+            birthCity: 63,
+        },
+        {
+            name: "Mehmet",
+            surname: "Bn",
+            birthYear: 1986,
+            birthCity: 63,
+        },
+    ];
+
     return (
         <div style={{ maxWidth: "100%" }}>
-            <MaterialTable
-                columns={[
-                    { title: "Adı", field: "name" },
-                    { title: "Soyadı", field: "surname" },
-                    { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
-                    {
-                        title: "Doğum Yeri",
-                        field: "birthCity",
-                        lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
-                    },
-                ]}
-                data={[
-                    {
-                        name: "Mehmet",
-                        surname: "Baran",
-                        birthYear: 1987,
-                        birthCity: 63,
-                    },
-                    {
-                        name: "Mehmet",
-                        surname: "Baran",
-                        birthYear: 1987,
-                        birthCity: 63,
-                    },
-                    {
-                        name: "Mehmet",
-                        surname: "Baran",
-                        birthYear: 1986,
-                        birthCity: 63,
-                    },
-                    {
-                        name: "Mehmet",
-                        surname: "Bn",
-                        birthYear: 1985,
-                        birthCity: 63,
-                    },
-                    {
-                        name: "Mehmet",
-                        surname: "Bn",
-                        birthYear: 1986,
-                        birthCity: 63,
-                    }
-                ]}
-                title="Demo Title"
-            />
+            <MaterialTable columns={columns} data={data} title="Demo Title" />
         </div>
     );
 }
