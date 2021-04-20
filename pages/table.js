@@ -1,7 +1,9 @@
-import { forwardRef } from "react";
+import { forwardRef, useState, useEffect } from "react";
 
 import ReactDOM from "react-dom";
 import MaterialTable from "material-table";
+
+import axios from "axios";
 
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -20,6 +22,13 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
 export default function Table() {
+    const api = axios.create({
+        baseURL: `https://reqres.in/api`,
+    });
+
+    const [data, setData] = useState([]); //table data
+    //for error handling
+
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -41,83 +50,30 @@ export default function Table() {
     };
 
     const columns = [
-        { title: "Adı", field: "name" },
-        { title: "Soyadı", field: "surname" },
-        { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
-        {
-            title: "Doğum Yeri",
-            field: "birthCity",
-            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
-        },
+        { title: "id", field: "id", hidden: true },
+        { title: "First name", field: "first_name" },
+        { title: "Last name", field: "last_name" },
+        { title: "email", field: "email" },
     ];
 
-    const data = [
-        {
-            name: "Mehmet",
-            surname: "Baran",
-            birthYear: 1987,
-            birthCity: 63,
-        },
-        {
-            name: "Mehmet",
-            surname: "Baran",
-            birthYear: 1987,
-            birthCity: 63,
-        },
-        {
-            name: "Mehmet",
-            surname: "Baran",
-            birthYear: 1986,
-            birthCity: 63,
-        },
-        {
-            name: "Mehmet",
-            surname: "Bn",
-            birthYear: 1985,
-            birthCity: 63,
-        },
-        {
-            name: "Mehmet",
-            surname: "Bn",
-            birthYear: 1986,
-            birthCity: 63,
-        },
-    ];
-
-    const editable = {
-        onRowAdd: (newData) =>
-            new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    setData([...data, newData]);
-
-                    resolve();
-                }, 1000);
-            }),
-        onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    const dataUpdate = [...data];
-                    const index = oldData.tableData.id;
-                    dataUpdate[index] = newData;
-                    setData([...dataUpdate]);
-                    resolve();
-                }, 1000);
-            }),
-        onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    const dataDelete = [...data];
-                    const index = oldData.tableData.id;
-                    dataDelete.splice(index, 1);
-                    setData([...dataDelete]);
-                    resolve();
-                }, 1000);
-            }),
+    const options = {
+        pageSizeOptions: [5, 10, 25, 50, 100],
     };
+
+    useEffect(() => {
+        api.get("/users")
+            .then((res) => {
+                setData(res.data.data);
+            })
+            .catch((error) => {
+                setErrorMessage(["Cannot load user data"]);
+                setIserror(true);
+            });
+    }, []);
 
     return (
         <div style={{ maxWidth: "100%" }}>
-            <MaterialTable columns={columns} data={data} title="Demo Title" editable={editable} />
+            <MaterialTable columns={columns} data={data} options={options} title="Covid19 Help India" icons={tableIcons} />
         </div>
     );
 }
