@@ -6,23 +6,6 @@ export default function Search() {
 	const [query, setQuery] = useState("");
 	var input;
 
-	const handleSearch = (searchText) => {
-		setQuery(searchText);
-		var text = searchText.toUpperCase();
-		var c = 0;
-		for (let option of cities.options) {
-			if (option.value.toUpperCase().indexOf(text) > -1) {
-				option.style.display = "block";
-				c++;
-			} else {
-				option.style.display = "none";
-			}
-		}
-		c === 0
-			? (cities.style.display = "none")
-			: (cities.style.display = "block");
-	}
-
 	useEffect(() => {
 		input = document.querySelector("#search");
 		input.onfocus = () => {
@@ -34,11 +17,27 @@ export default function Search() {
 				cities.style.display = "none";
 			};
 		}
+
+		input.oninput = () => {
+			var text = input.value.toUpperCase();
+			var c = 0;
+			for (let option of cities.options) {
+				if (option.value.toUpperCase().indexOf(text) > -1) {
+					option.style.display = "block";
+					c++;
+				} else {
+					option.style.display = "none";
+				}
+			}
+			c === 0
+				? (cities.style.display = "none")
+				: (cities.style.display = "block");
+		};
 	}, []);
 
 	return (
 		<div className="my-4">
-			<div className="w-6/12 mx-auto flex justify-items-center bg-gray-200 rounded-full">
+			<div className="w-6/12 mx-auto flex justify-items-center bg-gray-100 rounded-full">
 				<input
 					type="text"
 					value={query}
@@ -46,8 +45,8 @@ export default function Search() {
 					list=""
 					autocomplete="off"
 					name="city"
+					onChange={(e) => setQuery(e.value)}
 					placeholder="Search City"
-					onChange={(e) => handleSearch(e.value)}
 					className="h-10 w-full bg-transparent focus:outline-none p-4"
 				/>
 				<datalist
@@ -75,11 +74,60 @@ export default function Search() {
 					<option className={styles.cityOption} value="Firefox">
 						Firefox
 					</option>
+					<option className={styles.cityOption} value="Safari">
+						Safari
+					</option>
+					<option
+						className={styles.cityOption}
+						value="Microsoft Edge"
+					>
+						Microsoft Edge
+					</option>
+					<option className={styles.cityOption} value="Firefox">
+						Firefox
+					</option>
+					<option className={styles.cityOption} value="Safari">
+						Safari
+					</option>
+					<option
+						className={styles.cityOption}
+						value="Microsoft Edge"
+					>
+						Microsoft Edge
+					</option>
+					<option className={styles.cityOption} value="Firefox">
+						Firefox
+					</option>
+					<option className={styles.cityOption} value="Safari">
+						Safari
+					</option>
+					<option
+						className={styles.cityOption}
+						value="Microsoft Edge"
+					>
+						Microsoft Edge
+					</option>
+					<option className={styles.cityOption} value="Firefox">
+						Firefox
+					</option>
+					<option className={styles.cityOption} value="Safari">
+						Safari
+					</option>
+					<option
+						className={styles.cityOption}
+						value="Microsoft Edge"
+					>
+						Microsoft Edge
+					</option>
+					<option className={styles.cityOption} value="Firefox">
+						Firefox
+					</option>
 				</datalist>
 				<div className="py-2 pr-2">
-					<SearchRoundedIcon className="bg" />
+					<SearchRoundedIcon className="fill-current text-gray-600" />
 				</div>
 			</div>
+			
 		</div>
 	);
 }
