@@ -10,7 +10,7 @@ export default function Nav() {
         flexDirection: "row",
         alignItems: "center",
         padding: "10px",
-        boxShadow: "0px 0px 8px -4px rgba(0,0,0,1)",
+        boxShadow: "0px 0px 12px -4px rgba(0,0,0,1)",
     };
 
     if (!isLoggedIn) {
