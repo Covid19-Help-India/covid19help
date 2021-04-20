@@ -1,6 +1,6 @@
 import Nav from "../components/nav.js";
 import Footer from "../components/footer.js";
-import Table from "../components/table.js";
+import Table from "./table.js";
 import Head from "next/head";
 
 export default function Home() {
