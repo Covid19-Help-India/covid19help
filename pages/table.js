@@ -50,7 +50,7 @@ export default function Table() {
     };
 
     const columns = [
-        { title: "_id", field: "id", hidden: true },
+        { title: "id", field: "id", hidden: true },
         { title: "State", field: "State" },
         { title: "City", field: "City" },
         { title: "Category", field: "Category" },
@@ -82,11 +82,13 @@ export default function Table() {
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
-        console.log(publicRuntimeConfig.BACKEND_URL);
-        api.post("/get_info", { City: "Mumabi" })
+        let formData = new FormData();
+        formData.append("City", "Mumbai");
+        api.post("/get_info", formData)
             .then((res) => {
                 console.log(res.data);
-                // setData(res.data.data);
+                console.log(typeof res.data);
+                setData(res.data);
             })
             .catch((error) => {
                 setErrorMessage(["Cannot load user data"]);

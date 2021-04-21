@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import MaterialTable from "material-table";
 
 import axios from "axios";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
 
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -22,14 +24,9 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
 export default function AdminTable() {
-    const api = axios.create({
-        baseURL: `https://reqres.in/api`,
-    });
-
     const [data, setData] = useState([]); //table data
-    //for error handling
-    const [iserror, setIserror] = useState(false);
-    const [errorMessages, setErrorMessages] = useState([]);
+    const [errorMessage, setErrorMessage] = useState(""); //error message
+    const [error, setError] = useState(false); //error
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -53,14 +50,22 @@ export default function AdminTable() {
 
     const columns = [
         { title: "id", field: "id", hidden: true },
-        { title: "First name", field: "first_name" },
-        { title: "Last name", field: "last_name" },
-        { title: "email", field: "email" },
+        { title: "State", field: "State" },
+        { title: "City", field: "City" },
+        { title: "Category", field: "Category" },
+        { title: "Distributor", field: "Distributor" },
+        { title: "DistPhNo", field: "DistPhNo" },
+        { title: "DistAddress", field: "DistAddress" },
+        { title: "Pincode", field: "Pincode" },
+        { title: "Upvotes", field: "Upvotes" },
+        { title: "Downvotes", field: "Downvotes" },
+        { title: "Source", field: "Source" },
     ];
 
     const options = {
         pageSize: 10,
         pageSizeOptions: [5, 10, 25, 50, 100],
+        filtering: true,
     };
 
     const handleRowAdd = (newData, resolve) => {
@@ -153,13 +158,19 @@ export default function AdminTable() {
     };
 
     useEffect(() => {
-        api.get("/users")
+        const api = axios.create({
+            baseURL: publicRuntimeConfig.BACKEND_URL,
+        });
+        formData.append("City", "Mumbai");
+        api.post("/get_info", formData)
             .then((res) => {
-                setData(res.data.data);
+                console.log(res.data);
+                console.log(typeof res.data);
+                setData(res.data);
             })
             .catch((error) => {
                 setErrorMessage(["Cannot load user data"]);
-                setIserror(true);
+                setError(true);
             });
     }, []);
 
