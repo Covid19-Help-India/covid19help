@@ -22,7 +22,7 @@ export default function Admin() {
 					style={{
 						minHeight: windowHeight,
 						padding: "2rem 10px",
-						maxWidth: "1000px",
+						maxWidth: "1200px",
 						marginLeft: "auto",
 						marginRight: "auto",
 					}}
