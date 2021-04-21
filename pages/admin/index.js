@@ -17,7 +17,7 @@ export default function Admin() {
             <div>
                 <Nav />
 
-                <div style={{ minHeight: windowHeight, padding: "2rem 10px", maxWidth: "1000px", marginLeft: "auto", marginRight: "auto" }}>
+                <div style={{ minHeight: windowHeight, padding: "2rem 10px", maxWidth: "1200px", marginLeft: "auto", marginRight: "auto" }}>
                     <AdminTable />
                 </div>
 

@@ -3,8 +3,10 @@ import Footer from "../components/footer.js";
 import Search from "../components/Search.js";
 import Table from "./table.js";
 import Head from "next/head";
+import { resetServerContext } from "react-beautiful-dnd"
 
 export default function Home() {
+	resetServerContext();
 	return (
 		<div>
 			<Head>
@@ -26,7 +28,7 @@ export default function Home() {
 			<div
 				style={{
 					padding: "2rem 10px",
-					maxWidth: "1000px",
+					maxWidth: "1200px",
 					marginLeft: "auto",
 					marginRight: "auto",
 				}}

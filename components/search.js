@@ -48,7 +48,7 @@ export default function Search() {
 					value={query}
 					id="search"
 					list=""
-					autocomplete="off"
+					autoComplete="off"
 					name="city"
 					onChange={(e) => setQuery(e.value)}
 					placeholder="Search City"
