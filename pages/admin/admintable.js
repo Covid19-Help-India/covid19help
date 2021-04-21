@@ -161,6 +161,7 @@ export default function AdminTable() {
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
+        let formData = new FormData();
         formData.append("City", "Mumbai");
         api.post("/get_info", formData)
             .then((res) => {

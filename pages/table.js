@@ -21,7 +21,6 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import ChipGroup from "../components/chipGroup";
 
 export default function Table() {
     const [data, setData] = useState([]); //table data
@@ -69,15 +68,6 @@ export default function Table() {
         filtering: true,
     };
 
-    const components = {
-        Toolbar: (props) => (
-            <div>
-                <MTableToolbar {...props} />
-                <ChipGroup />
-            </div>
-        ),
-    };
-
     useEffect(() => {
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
@@ -98,7 +88,7 @@ export default function Table() {
 
     return (
         <div style={{ maxWidth: "100%" }}>
-            <MaterialTable columns={columns} data={data} components={components} options={options} title="Covid19 Help India" icons={tableIcons} />
+            <MaterialTable columns={columns} data={data} options={options} title="Covid19 Help India" icons={tableIcons} />
         </div>
     );
 }

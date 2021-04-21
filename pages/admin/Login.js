@@ -19,9 +19,9 @@ export default function Login() {
         formData.append("password", e.target.pass.value);
         api.post("/login", formData)
             .then((result) => {
-                console.log(result);
                 if (result.status) {
                     sessionStorage.setItem("user", e.target.id.value);
+                    location.replace("/admin");
                 }
             })
             .catch((error) => {
@@ -31,7 +31,9 @@ export default function Login() {
 
     return (
         <form className={styles.loginForm} onSubmit={handleSubmit}>
-            <p className={styles.title}>LOGIN</p>
+            <p className={styles.title}>
+                Covid19 Help India Login
+            </p>
             <br />
             <input className={styles.input} id="id" name="id" type="text" placeholder="Username" value={username} required onChange={(e) => setUsername(e.value)} />
             <br />
@@ -41,7 +43,7 @@ export default function Login() {
             <br />
             <div style={{ width: "100%", textAlign: "center" }}>
                 <button className={styles.btn} type="submit">
-                    Register
+                    Login
                 </button>
             </div>
         </form>

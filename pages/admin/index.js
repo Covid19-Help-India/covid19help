@@ -9,8 +9,8 @@ export default function Admin() {
 	const [windowHeight, setWindowHeight] = useState("");
 
 	useEffect(() => {
-		setWindowHeight(window.innerHeight - 110);
 		setLoggedIn(sessionStorage.getItem("user") ? true : false);
+		setWindowHeight(window.innerHeight - 110);
 	}, []);
 
 	if (isLoggedIn) {
