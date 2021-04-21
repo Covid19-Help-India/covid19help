@@ -13,50 +13,50 @@ export default function Admin() {
 		setLoggedIn(sessionStorage.getItem("user"));
 	}, []);
 
-	if (isLoggedIn) {
-		return (
-			<div>
-				<Nav />
+    if (isLoggedIn) {
+        return (
+            <div>
+                <Nav />
 
-				<div
-					style={{
-						minHeight: windowHeight,
-						padding: "2rem 10px",
-						maxWidth: "1000px",
-						marginLeft: "auto",
-						marginRight: "auto",
-					}}
-				>
-					<AdminTable />
-				</div>
+                <div
+                    style={{
+                        minHeight: windowHeight,
+                        padding: "2rem 10px",
+                        maxWidth: "1000px",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                >
+                    <AdminTable />
+                </div>
 
-				<Footer />
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				<Nav />
+                <Footer />
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <Nav />
 
-				<div
-					style={{
-						minHeight: windowHeight,
-						backgroundColor: "#1DA1F2",
-						display: "flex",
-						flexDirection: "row",
-						justifyContent: "center",
-						alignItems: "center",
-						padding: "4rem",
-						width: "100%",
-						marginLeft: "auto",
-						marginRight: "auto",
-					}}
-				>
-					<Login />
-				</div>
+                <div
+                    style={{
+                        minHeight: windowHeight,
+                        backgroundColor: "#1DA1F2",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "4rem",
+                        width: "100%",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                >
+                    <Login />
+                </div>
 
-				<Footer />
-			</div>
-		);
-	}
+                <Footer />
+            </div>
+        );
+    }
 }
