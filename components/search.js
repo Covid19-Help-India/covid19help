@@ -4,10 +4,9 @@ import styles from "../styles/Search.module.css";
 
 export default function Search() {
 	const [query, setQuery] = useState("");
-	var input;
 
 	useEffect(() => {
-		input = document.querySelector("#search");
+		const input = document.querySelector("#search");
 		input.onfocus = () => {
 			cities.style.display = "block";
 		};
@@ -37,8 +36,6 @@ export default function Search() {
 				: (cities.style.display = "block");
 		};
 	}, []);
-
-
 
 	return (
 		<div className="my-4">
@@ -132,7 +129,6 @@ export default function Search() {
 					<SearchRoundedIcon className="fill-current text-gray-600" />
 				</div>
 			</div>
-		
 		</div>
 	);
 }
