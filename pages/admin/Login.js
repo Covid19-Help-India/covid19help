@@ -1,17 +1,27 @@
 import styles from "../../styles/Login.module.css";
 import { useState } from "react";
 
+import axios from "axios";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+
 export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleSubmit = () => {
+	const handleSubmit = (e) => {
+		e.preventDefault();
 		const api = axios.create({
-			baseURL: "<BASE_URL>",
+			baseURL: publicRuntimeConfig.BACKEND_URL,
 		});
-		api.post("/login", { username: username, password: password })
+		let formData = new FormData();
+		formData.append("username", username);
+		formData.append("password", password);
+
+		api.post("/login", formData)
 			.then((res) => res.json())
 			.then((result) => {
+				console.log(result);
 				if (result.status) {
 					sessionStorage.setItem("user", username);
 				}
