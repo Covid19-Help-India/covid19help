@@ -5,12 +5,12 @@ import Login from "./login.js";
 import { useState, useEffect } from "react";
 
 export default function Admin() {
-	const [isLoggedIn] = useState(false);
+	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [windowHeight, setWindowHeight] = useState("");
 
 	useEffect(() => {
 		setWindowHeight(window.innerHeight - 110);
-		isLoggedIn = sessionStorage.getItem("user");
+		setLoggedIn(sessionStorage.getItem("user"));
 	}, []);
 
 	if (isLoggedIn) {
