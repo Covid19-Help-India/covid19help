@@ -5,11 +5,12 @@ import Login from "./login.js";
 import { useState, useEffect } from "react";
 
 export default function Admin() {
-    const isLoggedIn = true;
+    const [isLoggedIn] = useState(false);
     const [windowHeight, setWindowHeight] = useState("");
 
     useEffect(() => {
         setWindowHeight(window.innerHeight - 110);
+        isLoggedIn = sessionStorage.getItem("user");
     }, []);
 
     if (isLoggedIn) {
@@ -17,7 +18,15 @@ export default function Admin() {
             <div>
                 <Nav />
 
-                <div style={{ minHeight: windowHeight, padding: "2rem 10px", maxWidth: "1200px", marginLeft: "auto", marginRight: "auto" }}>
+                <div
+                    style={{
+                        minHeight: windowHeight,
+                        padding: "2rem 10px",
+                        maxWidth: "1000px",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                >
                     <AdminTable />
                 </div>
 
@@ -29,7 +38,20 @@ export default function Admin() {
             <div>
                 <Nav />
 
-                <div style={{ minHeight: windowHeight, backgroundColor: "#1DA1F2", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", padding: "4rem", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
+                <div
+                    style={{
+                        minHeight: windowHeight,
+                        backgroundColor: "#1DA1F2",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: "4rem",
+                        width: "100%",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                >
                     <Login />
                 </div>
 
