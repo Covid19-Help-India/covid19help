@@ -3,6 +3,7 @@ import { forwardRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
 
 import axios from "axios";
 import getConfig from "next/config";
@@ -26,6 +27,9 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 
 const useStyles = makeStyles({
     toolbarWrapper: {
+        "& .MuiPaper-root": {
+            border: "none",
+        },
         "& .MuiToolbar-gutters": {
             paddingLeft: 20,
             paddingRight: 20,
@@ -74,15 +78,39 @@ export default function AdminTable() {
 
     const columns = [
         { title: "id", field: "id", hidden: true },
-        { title: "State", field: "State", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
-        { title: "City", field: "City", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
         { title: "Category", field: "Category" },
+        {
+            title: "Upvotes",
+            field: "Upvotes",
+            editable: "never",
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
+            render: (rowData) => {
+                return (
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                        <div>{rowData.Upvotes}</div>
+                    </div>
+                );
+            },
+        },
+        {
+            title: "Downvotes",
+            field: "Downvotes",
+            editable: "never",
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
+            render: (rowData) => {
+                return (
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                        <div>{rowData.Downvotes}</div>
+                    </div>
+                );
+            },
+        },
+        { title: "City", field: "City", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
+        { title: "State", field: "State", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
         { title: "Distributor Name", field: "Distributor" },
         { title: "Distributor Contact", field: "DistPhNo" },
         { title: "Distributor Address", field: "DistAddress", headerStyle: { width: "10px" } },
         { title: "Pincode", field: "Pincode", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
-        { title: "Upvotes", field: "Upvotes", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
-        { title: "Downvotes", field: "Downvotes", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
         { title: "Source", field: "Source" },
     ];
 
@@ -90,7 +118,7 @@ export default function AdminTable() {
         pageSize: 10,
         pageSizeOptions: [10, 25, 50, 100],
         showTitle: false,
-        maxBodyHeight: windowHeight - 0.015 * windowHeight,
+        maxBodyHeight: windowHeight,
         headerStyle: {
             border: "0.5px solid lightgray",
             background: "#1da1f2",
@@ -128,6 +156,7 @@ export default function AdminTable() {
                 <MTableToolbar {...props} />
             </div>
         ),
+        Container: (props) => <Paper {...props} elevation={0} />,
     };
 
     const handleRowAdd = (newData, resolve) => {
@@ -220,7 +249,7 @@ export default function AdminTable() {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight - 217);
+        setWindowHeight(window.innerHeight - 174);
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
