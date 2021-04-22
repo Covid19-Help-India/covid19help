@@ -54,7 +54,7 @@ export default function AdminTable() {
 		baseURL: publicRuntimeConfig.BACKEND_URL,
 	});
 	const [data, setData] = useState([]); //table data
-	const [errorMessage, setErrorMessage] = useState(""); //error message
+	const [errorMessage, setErrorMessages] = useState(""); //error message
 	const [error, setError] = useState(false); //error
 	const [windowHeight, setWindowHeight] = useState("");
 
@@ -102,40 +102,12 @@ export default function AdminTable() {
 			field: "Upvotes",
 			editable: "never",
 			cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
-			render: (rowData) => {
-				return (
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							alignItems: "center",
-							justifyContent: "space-between",
-						}}
-					>
-						<div>{rowData.Upvotes}</div>
-					</div>
-				);
-			},
 		},
 		{
 			title: "Downvotes",
 			field: "Downvotes",
 			editable: "never",
 			cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
-			render: (rowData) => {
-				return (
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							alignItems: "center",
-							justifyContent: "space-between",
-						}}
-					>
-						<div>{rowData.Downvotes}</div>
-					</div>
-				);
-			},
 		},
 		{
 			title: "City",
@@ -159,7 +131,49 @@ export default function AdminTable() {
 			field: "Pincode",
 			cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
 		},
-		{ title: "Source", field: "Source" },
+		{
+			title: "Source",
+			field: "Source",
+			render: (rowData) => {
+				return (
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							justifyContent: "left",
+						}}
+					>
+						<div>
+							{rowData.Source == "nan" ? (
+								<p>-</p>
+							) : (
+								<a
+									href={rowData.Source}
+									target="_blank"
+									className="text-blue-400 underline"
+								>
+									{rowData.Source}
+								</a>
+							)}
+						</div>
+					</div>
+				);
+			},
+		},
+		{
+			title: "Details",
+			field: "Details",
+			render: (rowData) => {
+				return (
+					<div
+						dangerouslySetInnerHTML={{
+							__html: rowData.Details,
+						}}
+					/>
+				);
+			},
+		},
 	];
 
 	const options = {
@@ -224,7 +238,7 @@ export default function AdminTable() {
 		}
 
 		if (errorList.length < 1) {
-			api.post("/add_info", newData)
+			api.post("/add_info", JSON.stringify(newData))
 				.then((res) => {
 					if (res.status) {
 						let dataToAdd = [...data];
