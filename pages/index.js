@@ -18,7 +18,7 @@ export default function Home() {
 		<div>
 			<Head>
 				<title>Covid19 Help India</title>
-				<link rel="icon" href="/favicon.ico" />
+				<link rel="icon" href="/covid19icon.ico" />
 				<script
 					async
 					src="https://www.googletagmanager.com/gtag/js?id=UA-195041793-1"

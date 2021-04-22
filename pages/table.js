@@ -54,7 +54,7 @@ export default function Table() {
 		baseURL: publicRuntimeConfig.BACKEND_URL,
 	});
 	const [data, setData] = useState([]); //table data
-	const [errorMessage, setErrorMessage] = useState(""); //error message
+	const [errorMessage, setErrorMessages] = useState(""); //error message
 	const [error, setError] = useState(false); //error
 	const [windowHeight, setWindowHeight] = useState("");
 
@@ -283,18 +283,18 @@ export default function Table() {
 					const index = oldData.tableData.id;
 					dataUpdate[index] = newData;
 					setData([...dataUpdate]);
-					setIserror(false);
+					setError(false);
 					setErrorMessages([]);
 				} else {
 					setErrorMessages(["Cannot add data!"]);
-					setIserror(true);
+					setError(true);
 					console.log(errorMessage);
 				}
 				resolve();
 			})
 			.catch((error) => {
 				setErrorMessages(["Cannot add data! " + error]);
-				setIserror(true);
+				setError(true);
 				console.log(errorMessage);
 				resolve();
 			});
@@ -310,68 +310,72 @@ export default function Table() {
 					const index = oldData.tableData.id;
 					dataUpdate[index] = newData;
 					setData([...dataUpdate]);
-					setIserror(false);
+					setError(false);
 					setErrorMessages([]);
 				} else {
 					setErrorMessages(["Cannot add data!"]);
-					setIserror(true);
+					setError(true);
 					console.log(errorMessage);
 				}
 				resolve();
 			})
 			.catch((error) => {
 				setErrorMessages(["Cannot add data! " + error]);
-				setIserror(true);
+				setError(true);
 				console.log(errorMessage);
 				resolve();
 			});
 	};
 
-	const handleRowAdd = (newData, resolve) => {
-		let errorList = [];
-		console.log(newData);
-		if (newData.City === undefined) {
-			errorList.push("Please enter city");
-		}
-		if (newData.Category === undefined) {
-			errorList.push("Please enter category of resource");
-		}
-		if (newData.Distributor === undefined) {
-			errorList.push("Please enter distributor name");
-		}
-		if (newData.DistPhNo === undefined) {
-			errorList.push("Please enter distributor contact info");
-		}
-
-		if (errorList.length < 1) {
-			api.post("/add_info", newData)
-				.then((res) => {
-					if (res.status) {
-						let dataToAdd = [...data];
-						newData[id] = res.id;
-						dataToAdd.push(newData);
-						setData(dataToAdd);
-						setErrorMessages([]);
-						setIserror(false);
-					} else {
-						setErrorMessages(["Cannot add data!"]);
-						setIserror(true);
-						console.log(errorMessage);
-					}
-					resolve();
-				})
-				.catch((error) => {
-					setErrorMessages(["Cannot add data! " + error]);
-					setIserror(true);
-					console.log(errorMessage);
-					resolve();
-				});
-		} else {
-			setErrorMessages(errorList);
-			setIserror(true);
-			resolve();
-		}
-	};
+    const handleRowAdd = (newData, resolve) => {
+        let errorList = [];
+        console.log(newData);
+        if (newData.City === undefined) {
+            errorList.push("Please enter city");
+        }
+        if (newData.Category === undefined) {
+            errorList.push("Please enter category of resource");
+        }
+        if (newData.Distributor === undefined) {
+            errorList.push("Please enter distributor name");
+        }
+        if (newData.DistPhNo === undefined) {
+            errorList.push("Please enter distributor contact info");
+        }
+        let formData = new FormData();
+        for (var key in newData) {
+            formData.append(key, newData[key]);
+        }
+        if (errorList.length < 1) {
+            api.post("/add_info", formData)
+                .then((res) => {
+                    console.log(res.data);
+                    if (res.data.status) {
+                        let dataToAdd = [...data];
+                        newData['id'] = res.data.id;
+                        dataToAdd.push(newData);
+                        setData(dataToAdd);
+                        setErrorMessages([]);
+                        setError(false);
+                    } else {
+                        setErrorMessages(["Cannot add data!"]);
+                        setError(true);
+                        console.log(errorMessage);
+                    }
+                    resolve();
+                })
+                .catch((error) => {
+                    setErrorMessages(["Cannot add data! " + error]);
+                    setError(true);
+                    console.log(errorMessage);
+                    resolve();
+                });
+        } else {
+            setErrorMessages(errorList);
+            setError(true);
+            resolve();
+        }
+    };
 
 	const editable = {
 		onRowAdd: (newData) =>
