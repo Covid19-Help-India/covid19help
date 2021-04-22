@@ -6,6 +6,15 @@
     font-family: "Roboto", sans-serif;
 }
 .branding-logo:hover,
-.navbar-account:hover {
+.navbar-account:hover,
+.social-links:hover {
     cursor: pointer;
+}
+.navbar-account:focus,
+.navbar-account:active,
+.social-links:focus,
+.social-links:active {
+    outline: none !important;
+    border: none !important;
+    transform: scale(0.9);
 }

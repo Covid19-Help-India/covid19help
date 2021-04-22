@@ -38,7 +38,7 @@ export default function Search() {
 	}, []);
 
 	return (
-		<div className="my-4">
+		<div className="pt-5 pb-3">
 			<div className="sm:w-6/12 w-9/12 mx-auto flex justify-items-center bg-gray-100 rounded-full">
 				<input
 					type="text"

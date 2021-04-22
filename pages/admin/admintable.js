@@ -1,7 +1,8 @@
 import { forwardRef, useState, useEffect } from "react";
 
 import ReactDOM from "react-dom";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
+import { makeStyles } from "@material-ui/core/styles";
 
 import axios from "axios";
 import getConfig from "next/config";
@@ -23,10 +24,33 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
+const useStyles = makeStyles({
+    toolbarWrapper: {
+        "& .MuiToolbar-gutters": {
+            paddingLeft: 20,
+            paddingRight: 20,
+        },
+        "& .MTableToolbar-searchField-11": {
+            minWidth: "90%",
+            paddingLeft: 0,
+            paddingRight: 0,
+        },
+        "& .MuiTablePagination-caption": {
+            display: "none",
+        },
+        "& th": {
+            width: "200px",
+        },
+    },
+});
+
 export default function AdminTable() {
+    const classes = useStyles();
+
     const [data, setData] = useState([]); //table data
     const [errorMessage, setErrorMessage] = useState(""); //error message
     const [error, setError] = useState(false); //error
+    const [windowHeight, setWindowHeight] = useState("");
 
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -50,22 +74,60 @@ export default function AdminTable() {
 
     const columns = [
         { title: "id", field: "id", hidden: true },
-        { title: "State", field: "State" },
-        { title: "City", field: "City" },
+        { title: "State", field: "State", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
+        { title: "City", field: "City", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
         { title: "Category", field: "Category" },
-        { title: "Distributor", field: "Distributor" },
-        { title: "DistPhNo", field: "DistPhNo" },
-        { title: "DistAddress", field: "DistAddress" },
-        { title: "Pincode", field: "Pincode" },
-        { title: "Upvotes", field: "Upvotes" },
-        { title: "Downvotes", field: "Downvotes" },
+        { title: "Distributor Name", field: "Distributor" },
+        { title: "Distributor Contact", field: "DistPhNo" },
+        { title: "Distributor Address", field: "DistAddress", headerStyle: { width: "10px" } },
+        { title: "Pincode", field: "Pincode", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
+        { title: "Upvotes", field: "Upvotes", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
+        { title: "Downvotes", field: "Downvotes", cellStyle: { textAlign: "center", border: "0.5px solid lightgray" } },
         { title: "Source", field: "Source" },
     ];
 
     const options = {
         pageSize: 10,
-        pageSizeOptions: [5, 10, 25, 50, 100],
-        filtering: true,
+        pageSizeOptions: [10, 25, 50, 100],
+        showTitle: false,
+        maxBodyHeight: windowHeight - 0.015 * windowHeight,
+        headerStyle: {
+            border: "0.5px solid lightgray",
+            background: "#1da1f2",
+            color: "#f5f5f5",
+            textAlign: "left",
+            whiteSpace: "nowrap",
+        },
+        cellStyle: {
+            border: "0.5px solid lightgray",
+            whiteSpace: "nowrap",
+        },
+        paginationType: "stepped",
+        addRowPosition: "first",
+    };
+
+    const localization = {
+        pagination: {
+            labelDisplayedRows: "",
+            labelRowsSelect: "",
+            labelRowsPerPage: "",
+            firstAriaLabel: "First Page",
+            firstTooltip: "First Page",
+            previousAriaLabel: "Previous Page",
+            previousTooltip: "Previous Page",
+            nextAriaLabel: "Next Page",
+            nextTooltip: "Next Page",
+            lastAriaLabel: "Last Page",
+            lastTooltip: "Last Page",
+        },
+    };
+
+    const components = {
+        Toolbar: (props) => (
+            <div className={classes.toolbarWrapper}>
+                <MTableToolbar {...props} />
+            </div>
+        ),
     };
 
     const handleRowAdd = (newData, resolve) => {
@@ -158,6 +220,7 @@ export default function AdminTable() {
     };
 
     useEffect(() => {
+        setWindowHeight(window.innerHeight - 217);
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
@@ -165,8 +228,6 @@ export default function AdminTable() {
         formData.append("City", "Mumbai");
         api.post("/get_info", formData)
             .then((res) => {
-                console.log(res.data);
-                console.log(typeof res.data);
                 setData(res.data);
             })
             .catch((error) => {
@@ -177,7 +238,7 @@ export default function AdminTable() {
 
     return (
         <div style={{ maxWidth: "100%" }}>
-            <MaterialTable columns={columns} data={data} options={options} title="Covid19 Help India" icons={tableIcons} editable={editable} />
+            <MaterialTable columns={columns} components={components} localization={localization} data={data} options={options} title="Covid19 Help India" icons={tableIcons} editable={editable} />
         </div>
     );
 }

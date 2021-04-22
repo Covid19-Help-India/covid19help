@@ -3,40 +3,42 @@ import Footer from "../components/footer.js";
 import Search from "../components/Search.js";
 import Table from "./table.js";
 import Head from "next/head";
-import { resetServerContext } from "react-beautiful-dnd"
+import { useState, useEffect } from "react";
+import { resetServerContext } from "react-beautiful-dnd";
+import "../styles/Table.module.css";
 
 export default function Home() {
-	resetServerContext();
-	return (
-		<div>
-			<Head>
-				<title>Create Next App</title>
-				<link rel="icon" href="/favicon.ico" />
-				<link
-					rel="stylesheet"
-					href="https://fonts.googleapis.com/icon?family=Material+Icons"
-				/>
-				<link rel="preconnect" href="https://fonts.gstatic.com" />
-				<link
-					href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-					rel="stylesheet"
-				/>
-			</Head>
+    resetServerContext();
+    const [windowHeight, setWindowHeight] = useState("");
 
-			<Nav />
-			<Search />
-			<div
-				style={{
-					padding: "2rem 10px",
-					maxWidth: "1200px",
-					marginLeft: "auto",
-					marginRight: "auto",
-				}}
-			>
-				<Table />
-			</div>
+    useEffect(() => {
+        setWindowHeight(window.innerHeight - 56);
+    }, []);
 
-			<Footer />
-		</div>
-	);
+    return (
+        <div>
+            <Head>
+                <title>Covid19 Help India</title>
+                <link rel="icon" href="/favicon.ico" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+            </Head>
+
+            <Nav />
+            <Search />
+            <div
+                style={{
+                    padding: "10px",
+                    maxWidth: "1200px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                }}
+            >
+                <Table />
+            </div>
+
+            {/* <Footer /> */}
+        </div>
+    );
 }

@@ -6,7 +6,7 @@ export default function Nav() {
     let [isLoggedIn, setLoggedIn] = useState(false);
 
     const style = {
-        height: "60px",
+        height: "56px",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -25,19 +25,31 @@ export default function Nav() {
 
     return (
         <div id="navbar" style={style}>
-            <Link href="/">
+            <a href="/">
                 <Image className="branding-logo" src="/logo.png" alt="Picture of the author" width={36} height={36} />
-            </Link>
+            </a>
             <div style={{ marginRight: "auto", marginLeft: "10px", fontSize: "20px" }}>Covid19 Help India</div>
-            {isLoggedIn ? (
-                <button onClick={handleLogout}>
-                    <Image className="navbar-account" style={{ padding: "4px 12px" }} src="/logout.png" alt="Picture of the author" width={22} height={22} />
-                </button>
-            ) : (
-                <Link href="/admin">
-                    <Image className="navbar-account" style={{ padding: "4px 12px" }} src="/account.png" alt="Picture of the author" width={28} height={28} />
-                </Link>
-            )}
+            <div style={{ marginRight: "8px", maxHeight: "28px" }}>
+                <a target="_blank" href="https://www.twitter.com/covid19help_in">
+                    <Image className="social-links" src="/twitter.png" alt="Picture of the author" width={28} height={28} />
+                </a>
+            </div>
+            <div style={{ marginRight: "8px", maxHeight: "28px" }}>
+                <a target="_blank" href="https://www.instagram.com/covid19help.in" style={{ marginLeft: "10px" }}>
+                    <Image className="social-links" src="/instagram.png" alt="Picture of the author" width={28} height={28} />
+                </a>
+            </div>
+            <div style={{ marginRight: "2px", maxHeight: "28px" }}>
+                {!isLoggedIn || window.location.pathname == "/" ? (
+                    <a style={{ marginLeft: "10px" }} href="/admin">
+                        <Image className="navbar-account" src="/account.png" alt="Picture of the author" width={28} height={28} />
+                    </a>
+                ) : (
+                    <button className="navbar-account" style={{ marginLeft: "10px" }} onClick={handleLogout}>
+                        <Image src="/logout2.png" alt="Picture of the author" width={28} height={28} />
+                    </button>
+                )}
+            </div>
         </div>
     );
 }
