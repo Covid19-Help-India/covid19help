@@ -20,8 +20,8 @@ export default function Admin() {
 
                 <div
                     style={{
-                        padding: "1rem 10px",
-                        maxWidth: "1200px",
+                        // padding: "1rem 10px",
+                        maxWidth: "100%",
                         marginLeft: "auto",
                         marginRight: "auto",
                     }}
