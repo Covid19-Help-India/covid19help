@@ -1,6 +1,6 @@
 import Nav from "../components/nav.js";
 import Footer from "../components/footer.js";
-import Search from "../components/Search.js";
+import Search from "../components/search.js";
 import Table from "./table.js";
 import Head from "next/head";
 import { useState, useEffect } from "react";
