@@ -1,7 +1,7 @@
 import Nav from "../../components/nav.js";
 import Footer from "../../components/footer.js";
 import AdminTable from "./admintable.js";
-import Login from "./login.js";
+import Login from "./Login.js";
 import { useState, useEffect } from "react";
 
 export default function Admin() {
