@@ -197,7 +197,7 @@ export default function Table() {
 						}}
 					>
 						<div>
-							{rowData.Source == "nan" ? (
+							{rowData.Source == "NaN" ? (
 								<p>-</p>
 							) : (
 								<a

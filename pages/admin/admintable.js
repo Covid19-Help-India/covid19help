@@ -129,7 +129,7 @@ export default function AdminTable() {
                         }}
                     >
                         <div>
-                            {rowData.Source == "nan" ? (
+                            {rowData.Source == "NaN" ? (
                                 <p>-</p>
                             ) : (
                                 <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
