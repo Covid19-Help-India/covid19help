@@ -54,7 +54,7 @@ export default function Admin() {
                     <Login />
                 </div>
 
-                {/* <Footer /> */}
+                <Footer />
             </div>
         );
     }

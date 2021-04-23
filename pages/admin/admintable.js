@@ -374,7 +374,7 @@ export default function AdminTable() {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight - 166);
+        setWindowHeight(window.innerHeight - 216);
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
