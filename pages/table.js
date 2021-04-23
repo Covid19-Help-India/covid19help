@@ -42,8 +42,9 @@ const useStyles = makeStyles({
         "& .MuiTablePagination-caption": {
             display: "none",
         },
-        "& th": {
-            width: "200px",
+        "& .MuiTablePagination-toolbar": {
+            minHeight: "54px",
+            maxHeight: "54px",
         },
     },
 });
@@ -80,9 +81,9 @@ export default function Table() {
 
     const columns = [
         { title: "id", field: "id", hidden: true },
-        { title: "Category", field: "Category" },
+        { title: "CATEGORY", field: "Category", cellStyle: { whitespace: "nowrap" } },
         {
-            title: "Upvotes",
+            title: "UPVOTES",
             field: "Upvotes",
             editable: "never",
             cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
@@ -96,18 +97,27 @@ export default function Table() {
                             justifyContent: "space-between",
                         }}
                     >
-                        <div>{rowData.Upvotes}</div>
                         <button
                             id={`d_${rowData.id}`}
                             onClick={() => upvoteHandler(rowData)}
-                            className="focus:outline-none"
+                            className="focus:outline-none vote-button"
                             style={{
                                 padding: 4,
-                                borderRadius: 5,
                                 fontSize: 12,
-                                marginLeft: "auto",
+                                minWidth: "100px",
+                                padding: "6px 10px 6px 16px",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                background: "#DDFFDD",
+                                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                                borderRadius: "7px",
                             }}
                         >
+                            <div style={{ fontSize: "16px" }}>
+                                <b>{rowData.Upvotes}</b>
+                            </div>
                             <ArrowUpward className="fill-current text-green-600" />
                         </button>
                     </div>
@@ -115,7 +125,7 @@ export default function Table() {
             },
         },
         {
-            title: "Downvotes",
+            title: "DOWNVOTES",
             field: "Downvotes",
             editable: "never",
             cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
@@ -126,51 +136,74 @@ export default function Table() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
-                            justifyContent: "space-between",
+                            justifyContent: "center",
                         }}
                     >
-                        <div>{rowData.Downvotes}</div>
                         <button
                             id={`d_${rowData.id}`}
                             onClick={() => downvoteHandler(rowData)}
-                            className="focus:outline-none"
+                            className="focus:outline-none vote-button"
                             style={{
                                 padding: 4,
-                                borderRadius: 5,
                                 fontSize: 12,
-                                marginLeft: "auto",
+                                minWidth: "100px",
+                                padding: "6px 10px 6px 16px",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                background: "#fbebd8",
+                                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+                                borderRadius: "7px",
                             }}
                         >
-                            <ArrowDownward className="fill-current text-red-600" />
+                            <div style={{ fontSize: "16px" }}>
+                                <b>{rowData.Downvotes}</b>
+                            </div>
+                            <ArrowDownward style={{ marginLeft: "auto" }} className="fill-current text-red-600" />
                         </button>
                     </div>
                 );
             },
         },
         {
-            title: "City",
+            title: "RECENT STATUS",
+            field: "Details",
+            editable: "never",
+            render: (rowData) => {
+                return (() => {
+                    if (rowData.Details.includes("Downvoted")) return <span style={{ color: "red" }}>{rowData.Details}</span>;
+                    if (rowData.Details.includes("Upvoted")) return <span style={{ color: "green" }}>{rowData.Details}</span>;
+                    if (rowData.Details.includes("Added")) return <span style={{ color: "blue" }}>{rowData.Details}</span>;
+                    else return <span>-</span>;
+                })();
+            },
+        },
+        {
+            title: "CITY",
             field: "City",
-            cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
         },
         {
-            title: "State",
+            title: "STATE",
             field: "State",
-            cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
         },
-        { title: "Distributor Name", field: "Distributor" },
-        { title: "Distributor Contact", field: "DistPhNo" },
+        { title: "DISTRIBUTOR NAME", field: "Distributor" },
+        { title: "Distributor Contact", field: "DistPhNo", cellStyle: { whitespace: "nowrap" } },
         {
-            title: "Distributor Address",
+            title: "DISTRIBUTOR ADDRESS",
             field: "DistAddress",
             headerStyle: { width: "10px" },
+            cellStyle: { whitespace: "nowrap" },
         },
         {
-            title: "Pincode",
+            title: "PINCODE",
             field: "Pincode",
             cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
         },
         {
-            title: "Source",
+            title: "SOURCE OF INFORMATION",
             field: "Source",
             render: (rowData) => {
                 return (
@@ -183,28 +216,15 @@ export default function Table() {
                         }}
                     >
                         <div>
-                            {rowData.Source == "NaN" || rowData.Source == "-" ? (
+                            {rowData.Source == "NaN" || rowData.Source == "-" || rowData.Source == " " ? (
                                 <p>-</p>
                             ) : (
-                                <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
-                                    {rowData.Source}
-                                </a>
+                                // <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
+                                <p>{rowData.Source}</p>
+                                // </a>
                             )}
                         </div>
                     </div>
-                );
-            },
-        },
-        {
-            title: "Details",
-            field: "Details",
-            render: (rowData) => {
-                return (
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: rowData.Details,
-                        }}
-                    />
                 );
             },
         },
@@ -214,13 +234,19 @@ export default function Table() {
         pageSize: 10,
         pageSizeOptions: [10, 25, 50, 100],
         showTitle: false,
+        minBodyHeight: windowHeight,
         maxBodyHeight: windowHeight,
         headerStyle: {
             border: "0.5px solid lightgray",
             background: "#1da1f2",
-            color: "#f5f5f5",
+            color: "#ffffff",
             textAlign: "left",
+            fontSize: "16px",
             whiteSpace: "nowrap",
+        },
+        searchFieldStyle: {
+            width: "100%",
+            border: "none",
         },
         cellStyle: {
             border: "0.5px solid lightgray",
@@ -228,9 +254,16 @@ export default function Table() {
         },
         paginationType: "stepped",
         addRowPosition: "first",
+        padding: "dense",
     };
 
     const localization = {
+        body: {
+            addTooltip: "Add data",
+            editTooltip: "Login to Edit Data",
+            deleteTooltip: "Login to Delete Data",
+            emptyDataSourceMessage: "Sorry, We currently have NO resources available to display.",
+        },
         pagination: {
             labelDisplayedRows: "",
             labelRowsSelect: "",
@@ -244,15 +277,32 @@ export default function Table() {
             lastAriaLabel: "Last Page",
             lastTooltip: "Last Page",
         },
+        toolbar: {
+            searchPlaceholder: "Search Categories, Locations, Distributors",
+        },
     };
 
     const components = {
         Toolbar: (props) => (
-            <div className={classes.toolbarWrapper}>
+            <div
+                className={classes.toolbarWrapper}
+                style={{
+                    height: "56px",
+                    width: "100%",
+                }}
+            >
                 <MTableToolbar {...props} />
             </div>
         ),
         Container: (props) => <Paper {...props} elevation={0} />,
+    };
+
+    const style = {
+        borderRadius: "0px",
+        boxShadow: "0px 0px white",
+        borderBottom: "none",
+        borderTop: "0.5px solid lightgray",
+        width: "100%",
     };
 
     const upvoteHandler = (rowData) => {
@@ -263,7 +313,7 @@ export default function Table() {
                 if (res.data.status) {
                     const dataUpdate = [...data];
                     const index = rowData.tableData.id;
-                    rowData.Upvotes = res.data.Upvotes;
+                    rowData = res.data;
                     dataUpdate[index] = rowData;
                     setData([...dataUpdate]);
                     setError(false);
@@ -289,7 +339,7 @@ export default function Table() {
                 if (res.data.status) {
                     const dataUpdate = [...data];
                     const index = rowData.tableData.id;
-                    rowData.Downvotes = res.data.Downvotes;
+                    rowData = res.data;
                     dataUpdate[index] = rowData;
                     setData([...dataUpdate]);
                     setError(false);
@@ -331,6 +381,7 @@ export default function Table() {
                     if (res.data.status) {
                         let dataToAdd = [...data];
                         newData["id"] = res.data.id;
+                        newData = res.data;
                         dataToAdd.push(newData);
                         setData(dataToAdd);
                         setErrorMessages([]);
@@ -373,7 +424,7 @@ export default function Table() {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight - 174);
+        setWindowHeight(window.innerHeight - 166);
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
@@ -391,7 +442,7 @@ export default function Table() {
 
     return (
         <div style={{ maxWidth: "100%" }}>
-            <MaterialTable columns={columns} components={components} localization={localization} data={data} options={options} title="Covid19 Help India" icons={tableIcons} editable={editable} />
+            <MaterialTable style={style} columns={columns} components={components} localization={localization} data={data} options={options} title="Covid19 Help India" icons={tableIcons} editable={editable} />
         </div>
     );
 }

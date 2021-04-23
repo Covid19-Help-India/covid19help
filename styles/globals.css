@@ -18,3 +18,10 @@
     border: none !important;
     transform: scale(0.9);
 }
+
+.vote-button:hover {
+    transform: scale(1.05);
+}
+.vote-button:active {
+    transform: scale(0.95);
+}

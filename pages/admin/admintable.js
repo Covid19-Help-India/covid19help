@@ -42,8 +42,9 @@ const useStyles = makeStyles({
         "& .MuiTablePagination-caption": {
             display: "none",
         },
-        "& th": {
-            width: "200px",
+        "& .MuiTablePagination-toolbar": {
+            minHeight: "54px",
+            maxHeight: "54px",
         },
     },
 });
@@ -96,12 +97,12 @@ export default function AdminTable() {
         {
             title: "City",
             field: "City",
-            cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
         },
         {
             title: "State",
             field: "State",
-            cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
         },
         { title: "Distributor Name", field: "Distributor" },
         { title: "Distributor Contact", field: "DistPhNo" },
@@ -116,7 +117,7 @@ export default function AdminTable() {
             cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
         },
         {
-            title: "Source",
+            title: "Source Link",
             field: "Source",
             render: (rowData) => {
                 return (
@@ -129,7 +130,7 @@ export default function AdminTable() {
                         }}
                     >
                         <div>
-                            {rowData.Source == "NaN" ? (
+                            {rowData.Source == "NaN" || rowData.Source == "-" || rowData.Source == " " ? (
                                 <p>-</p>
                             ) : (
                                 <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
@@ -144,6 +145,7 @@ export default function AdminTable() {
         {
             title: "Details",
             field: "Details",
+            editable: "never",
             render: (rowData) => {
                 return (
                     <div
@@ -160,13 +162,19 @@ export default function AdminTable() {
         pageSize: 10,
         pageSizeOptions: [10, 25, 50, 100],
         showTitle: false,
+        minBodyHeight: windowHeight,
         maxBodyHeight: windowHeight,
         headerStyle: {
             border: "0.5px solid lightgray",
             background: "#1da1f2",
-            color: "#f5f5f5",
+            color: "#ffffff",
             textAlign: "left",
+            fontSize: "16px",
             whiteSpace: "nowrap",
+        },
+        searchFieldStyle: {
+            width: "100%",
+            border: "none",
         },
         cellStyle: {
             border: "0.5px solid lightgray",
@@ -174,9 +182,16 @@ export default function AdminTable() {
         },
         paginationType: "stepped",
         addRowPosition: "first",
+        padding: "dense",
     };
 
     const localization = {
+        body: {
+            addTooltip: "Add data",
+            editTooltip: "Edit Data",
+            deleteTooltip: "Delete Data",
+            emptyDataSourceMessage: "Sorry, We currently have NO resources available to display.",
+        },
         pagination: {
             labelDisplayedRows: "",
             labelRowsSelect: "",
@@ -190,29 +205,50 @@ export default function AdminTable() {
             lastAriaLabel: "Last Page",
             lastTooltip: "Last Page",
         },
+        toolbar: {
+            searchPlaceholder: "Search Categories, Locations, Distributors",
+        },
     };
 
     const components = {
         Toolbar: (props) => (
-            <div className={classes.toolbarWrapper}>
+            <div
+                className={classes.toolbarWrapper}
+                style={{
+                    height: "56px",
+                    width: "100%",
+                }}
+            >
                 <MTableToolbar {...props} />
             </div>
         ),
         Container: (props) => <Paper {...props} elevation={0} />,
     };
 
+    const style = {
+        borderRadius: "0px",
+        boxShadow: "0px 0px white",
+        borderBottom: "none",
+        borderTop: "0.5px solid lightgray",
+        width: "100%",
+    };
+
     const handleRowAdd = (newData, resolve) => {
         let errorList = [];
         if (newData.City === undefined) {
+            alert("Please add City. For Eg.: Mumbai");
             errorList.push("Please enter city");
         }
         if (newData.Category === undefined) {
+            alert("Please add Category. For Eg.: Remdesivir (7) or Beds (100)");
             errorList.push("Please enter category of resource");
         }
         if (newData.Distributor === undefined) {
+            alert("Please add Distributor Name.");
             errorList.push("Please enter distributor name");
         }
         if (newData.DistPhNo === undefined) {
+            alert("Please add Distributor Phone Number.");
             errorList.push("Please enter distributor contact info");
         }
         let formData = new FormData();
@@ -224,7 +260,8 @@ export default function AdminTable() {
                 .then((res) => {
                     if (res.data.status) {
                         let dataToAdd = [...data];
-                        newData['id'] = res.data.id;
+                        newData["id"] = res.data.id;
+                        newData = res.data;
                         dataToAdd.push(newData);
                         setData(dataToAdd);
                         setErrorMessages([]);
@@ -336,7 +373,7 @@ export default function AdminTable() {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight - 174);
+        setWindowHeight(window.innerHeight - 166);
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });
@@ -354,7 +391,7 @@ export default function AdminTable() {
 
     return (
         <div style={{ maxWidth: "100%" }}>
-            <MaterialTable columns={columns} components={components} localization={localization} data={data} options={options} title="Covid19 Help India" icons={tableIcons} editable={editable} />
+            <MaterialTable style={style} columns={columns} components={components} localization={localization} data={data} options={options} title="Covid19 Help India" icons={tableIcons} editable={editable} />
         </div>
     );
 }
