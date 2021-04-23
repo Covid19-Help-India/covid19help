@@ -7,25 +7,22 @@ import { resetServerContext } from "react-beautiful-dnd";
 import "../styles/Table.module.css";
 
 export default function Home() {
-	resetServerContext();
-	const [windowHeight, setWindowHeight] = useState("");
+    resetServerContext();
+    const [windowHeight, setWindowHeight] = useState("");
 
-	useEffect(() => {
-		setWindowHeight(window.innerHeight - 56);
-	}, []);
+    useEffect(() => {
+        setWindowHeight(window.innerHeight - 56);
+    }, []);
 
-	return (
-		<div>
-			<Head>
-				<title>Covid19 Help India</title>
-				<link rel="icon" href="/covid19icon.ico" />
-				<script
-					async
-					src="https://www.googletagmanager.com/gtag/js?id=UA-195041793-1"
-				/>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
+    return (
+        <div>
+            <Head>
+                <title>Covid19 Help India</title>
+                <link rel="icon" href="/covid19icon.ico" />
+                <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195041793-1" />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
                         window.dataLayer = window.dataLayer || []
                         function gtag(){
                             dataLayer.push(arguments)
@@ -81,6 +78,7 @@ export default function Home() {
             >
                 <Table />
             </div>
+            <Footer />
         </div>
     );
 }

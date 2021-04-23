@@ -81,6 +81,11 @@ export default function Table() {
 
     const columns = [
         { title: "id", field: "id", hidden: true },
+        {
+            title: "CITY",
+            field: "City",
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
+        },
         { title: "CATEGORY", field: "Category", cellStyle: { whitespace: "nowrap" } },
         {
             title: "UPVOTES",
@@ -180,11 +185,6 @@ export default function Table() {
             },
         },
         {
-            title: "CITY",
-            field: "City",
-            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
-        },
-        {
             title: "STATE",
             field: "State",
             cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
@@ -236,6 +236,8 @@ export default function Table() {
         showTitle: false,
         minBodyHeight: windowHeight,
         maxBodyHeight: windowHeight,
+        filtering: true,
+        actionsColumnIndex: 11,
         headerStyle: {
             border: "0.5px solid lightgray",
             background: "#1da1f2",
@@ -424,7 +426,7 @@ export default function Table() {
     };
 
     useEffect(() => {
-        setWindowHeight(window.innerHeight - 166);
+        setWindowHeight(window.innerHeight - 216);
         const api = axios.create({
             baseURL: publicRuntimeConfig.BACKEND_URL,
         });

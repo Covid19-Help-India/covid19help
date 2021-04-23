@@ -81,6 +81,11 @@ export default function AdminTable() {
 
     const columns = [
         { title: "id", field: "id", hidden: true },
+        {
+            title: "City",
+            field: "City",
+            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
+        },
         { title: "Category", field: "Category" },
         {
             title: "Upvotes",
@@ -93,11 +98,6 @@ export default function AdminTable() {
             field: "Downvotes",
             editable: "never",
             cellStyle: { textAlign: "center", border: "0.5px solid lightgray" },
-        },
-        {
-            title: "City",
-            field: "City",
-            cellStyle: { textAlign: "center", border: "0.5px solid lightgray", whiteSpace: "nowrap" },
         },
         {
             title: "State",
@@ -160,10 +160,11 @@ export default function AdminTable() {
 
     const options = {
         pageSize: 10,
-        pageSizeOptions: [10, 25, 50, 100],
+        pageSizeOptions: [10, 25, 50, 100, 250, 500, 1000],
         showTitle: false,
         minBodyHeight: windowHeight,
         maxBodyHeight: windowHeight,
+        filtering: true,
         headerStyle: {
             border: "0.5px solid lightgray",
             background: "#1da1f2",

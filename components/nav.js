@@ -29,7 +29,7 @@ export default function Nav() {
                 <Image className="branding-logo" src="/logo.png" alt="Picture of the author" width={32} height={32} />
             </a>
             <div style={{ marginRight: "auto", marginLeft: "6px", fontSize: "20px" }}>Covid19 Help India</div>
-            <div style={{ marginRight: "6px", maxHeight: "28px" }}>
+            {/* <div style={{ marginRight: "6px", maxHeight: "28px" }}>
                 <a target="_blank" href="https://www.twitter.com/covid19help_in" style={{ width: "28px", height: "28px" }}>
                     <Image className="social-links" src="/twitter.png" alt="Picture of the author" width={28} height={28} />
                 </a>
@@ -37,6 +37,11 @@ export default function Nav() {
             <div style={{ marginRight: "6px", maxHeight: "28px" }}>
                 <a target="_blank" href="https://www.instagram.com/covid19help.in" style={{ marginLeft: "10px", width: "28px", height: "28px" }}>
                     <Image className="social-links" src="/instagram.png" alt="Picture of the author" width={28} height={28} />
+                </a>
+            </div> */}
+            <div style={{ marginRight: "6px", maxHeight: "28px" }}>
+                <a target="_blank" href="https://www.linktr.ee/covid19help" style={{ padding: "4px 6px", boxShadow: "rgba(149, 157, 165, 0.2) 0px 6px 20px", borderRadius: "10px", backgroundColor: "#1da1f2", color: "#ffffff", fontSize: "14", marginLeft: "10px", width: "28px", height: "28px" }}>
+                    Linktr.ee
                 </a>
             </div>
             <div style={{ marginRight: "2px", maxHeight: "28px" }}>
