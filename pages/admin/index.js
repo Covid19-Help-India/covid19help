@@ -29,7 +29,7 @@ export default function Admin() {
                     <AdminTable />
                 </div>
 
-                {/* <Footer /> */}
+                <Footer />
             </div>
         );
     } else {
