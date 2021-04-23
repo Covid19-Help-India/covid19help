@@ -98,7 +98,8 @@ export default function Table() {
                     >
                         <div>{rowData.Upvotes}</div>
                         <button
-                            onClick={() => upvoteHandler(rowData.id)}
+                            id={`d_${rowData.id}`}
+                            onClick={() => upvoteHandler(rowData)}
                             className="focus:outline-none"
                             style={{
                                 padding: 4,
@@ -130,7 +131,8 @@ export default function Table() {
                     >
                         <div>{rowData.Downvotes}</div>
                         <button
-                            onClick={() => downvoteHandler(rowData.id)}
+                            id={`d_${rowData.id}`}
+                            onClick={() => downvoteHandler(rowData)}
                             className="focus:outline-none"
                             style={{
                                 padding: 4,
@@ -253,17 +255,19 @@ export default function Table() {
         Container: (props) => <Paper {...props} elevation={0} />,
     };
 
-    const upvoteHandler = (id) => {
-        console.log(id);
+    const upvoteHandler = (rowData) => {
+        console.log(rowData);
         let formData = new FormData();
-        formData.append("id", id);
+        formData.append("id", rowData.id);
         console.log(formData);
         api.post("/upvote", formData)
             .then((res) => {
-                if (res.status) {
+                console.log(res.data);
+                if (res.data.status) {
                     const dataUpdate = [...data];
-                    const index = oldData.tableData.id;
-                    dataUpdate[index] = newData;
+                    const index = rowData.tableData.id;
+                    rowData.Upvotes = res.data.Upvotes;
+                    dataUpdate[index] = rowData;
                     setData([...dataUpdate]);
                     setError(false);
                     setErrorMessages([]);
@@ -280,17 +284,18 @@ export default function Table() {
             });
     };
 
-    const downvoteHandler = (id) => {
-        console.log(id);
+    const downvoteHandler = (rowData) => {
+        console.log(rowData);
         let formData = new FormData();
-        formData.append("id", id);
+        formData.append("id", rowData.id);
         console.log(formData);
         api.post("/downvote", formData)
             .then((res) => {
-                if (res.status) {
+                if (res.data.status) {
                     const dataUpdate = [...data];
-                    const index = oldData.tableData.id;
-                    dataUpdate[index] = newData;
+                    const index = rowData.tableData.id;
+                    rowData.Downvotes = res.data.Downvotes;
+                    dataUpdate[index] = rowData;
                     setData([...dataUpdate]);
                     setError(false);
                     setErrorMessages([]);
