@@ -98,7 +98,7 @@ export default function Table() {
                     >
                         <div>{rowData.Upvotes}</div>
                         <button
-                            onClick={upvoteHandler}
+                            onClick={() => upvoteHandler(rowData.id)}
                             className="focus:outline-none"
                             style={{
                                 padding: 4,
@@ -130,7 +130,7 @@ export default function Table() {
                     >
                         <div>{rowData.Downvotes}</div>
                         <button
-                            onClick={downvoteHandler}
+                            onClick={() => downvoteHandler(rowData.id)}
                             className="focus:outline-none"
                             style={{
                                 padding: 4,
@@ -181,7 +181,7 @@ export default function Table() {
                         }}
                     >
                         <div>
-                            {rowData.Source == "NaN" ? (
+                            {rowData.Source == "NaN" || rowData.Source == "-" ? (
                                 <p>-</p>
                             ) : (
                                 <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
@@ -253,9 +253,11 @@ export default function Table() {
         Container: (props) => <Paper {...props} elevation={0} />,
     };
 
-    const upvoteHandler = () => {
+    const upvoteHandler = (id) => {
+        console.log(id);
         let formData = new FormData();
-        formData.append("entry_id", "<id>");
+        formData.append("id", id);
+        console.log(formData);
         api.post("/upvote", formData)
             .then((res) => {
                 if (res.status) {
@@ -270,19 +272,19 @@ export default function Table() {
                     setError(true);
                     console.log(errorMessage);
                 }
-                resolve();
             })
             .catch((error) => {
                 setErrorMessages(["Cannot add data! " + error]);
                 setError(true);
                 console.log(errorMessage);
-                resolve();
             });
     };
 
-    const downvoteHandler = () => {
+    const downvoteHandler = (id) => {
+        console.log(id);
         let formData = new FormData();
-        formData.append("entry_id", "<id>");
+        formData.append("id", id);
+        console.log(formData);
         api.post("/downvote", formData)
             .then((res) => {
                 if (res.status) {
@@ -297,13 +299,11 @@ export default function Table() {
                     setError(true);
                     console.log(errorMessage);
                 }
-                resolve();
             })
             .catch((error) => {
                 setErrorMessages(["Cannot add data! " + error]);
                 setError(true);
                 console.log(errorMessage);
-                resolve();
             });
     };
 
@@ -386,7 +386,7 @@ export default function Table() {
                 setData(res.data);
             })
             .catch((error) => {
-                setErrorMessage(["Cannot load user data"]);
+                setErrorMessages(["Cannot load user data"]);
                 setError(true);
             });
     }, []);
