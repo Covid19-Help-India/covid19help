@@ -256,13 +256,10 @@ export default function Table() {
     };
 
     const upvoteHandler = (rowData) => {
-        console.log(rowData);
         let formData = new FormData();
         formData.append("id", rowData.id);
-        console.log(formData);
         api.post("/upvote", formData)
             .then((res) => {
-                console.log(res.data);
                 if (res.data.status) {
                     const dataUpdate = [...data];
                     const index = rowData.tableData.id;
@@ -285,10 +282,8 @@ export default function Table() {
     };
 
     const downvoteHandler = (rowData) => {
-        console.log(rowData);
         let formData = new FormData();
         formData.append("id", rowData.id);
-        console.log(formData);
         api.post("/downvote", formData)
             .then((res) => {
                 if (res.data.status) {
@@ -314,7 +309,6 @@ export default function Table() {
 
     const handleRowAdd = (newData, resolve) => {
         let errorList = [];
-        console.log(newData);
         if (newData.City === undefined) {
             errorList.push("Please enter city");
         }
@@ -334,7 +328,6 @@ export default function Table() {
         if (errorList.length < 1) {
             api.post("/add_info", formData)
                 .then((res) => {
-                    console.log(res.data);
                     if (res.data.status) {
                         let dataToAdd = [...data];
                         newData["id"] = res.data.id;

@@ -22,6 +22,8 @@ export default function Login() {
                 if (result.data.success) {
                     sessionStorage.setItem("user", result.data.username);
                     location.replace("/admin");
+                } else {
+                    alert(result.data.message);
                 }
             })
             .catch((error) => {

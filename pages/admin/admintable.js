@@ -203,7 +203,6 @@ export default function AdminTable() {
 
     const handleRowAdd = (newData, resolve) => {
         let errorList = [];
-        console.log(newData);
         if (newData.City === undefined) {
             errorList.push("Please enter city");
         }
@@ -223,7 +222,6 @@ export default function AdminTable() {
         if (errorList.length < 1) {
             api.post("/add_info", formData)
                 .then((res) => {
-                    console.log(res.data);
                     if (res.data.status) {
                         let dataToAdd = [...data];
                         newData['id'] = res.data.id;
@@ -254,7 +252,6 @@ export default function AdminTable() {
     const handleRowUpdate = (newData, oldData, resolve) => {
         //validation
         let errorList = [];
-        console.log(newData);
         if (newData.City === undefined) {
             errorList.push("Please enter city");
         }
@@ -277,7 +274,6 @@ export default function AdminTable() {
                     if (res.data.status) {
                         const dataUpdate = [...data];
                         const index = oldData.tableData.id;
-                        console.log(res.data);
                         dataUpdate[index] = newData;
                         setData([...dataUpdate]);
                         setError(false);
@@ -314,7 +310,6 @@ export default function AdminTable() {
                 } else {
                     setErrorMessages(["Delete failed!"]);
                     setError(true);
-                    console.log(errorMessage);
                 }
                 resolve();
             })
