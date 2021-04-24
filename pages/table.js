@@ -180,6 +180,7 @@ export default function Table() {
                     if (rowData.Details.includes("Downvoted")) return <span style={{ color: "red" }}>{rowData.Details}</span>;
                     if (rowData.Details.includes("Upvoted")) return <span style={{ color: "green" }}>{rowData.Details}</span>;
                     if (rowData.Details.includes("Added")) return <span style={{ color: "blue" }}>{rowData.Details}</span>;
+                    if (rowData.Details.includes("Data Edited")) return <span style={{ color: "#800080" }}>{rowData.Details}</span>;
                     else return <span>-</span>;
                 })();
             },

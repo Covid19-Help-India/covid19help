@@ -133,9 +133,9 @@ export default function AdminTable() {
                             {rowData.Source == "NaN" || rowData.Source == "-" || rowData.Source == " " ? (
                                 <p>-</p>
                             ) : (
-                                <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
-                                    {rowData.Source}
-                                </a>
+                                // <a href={rowData.Source} target="_blank" className="text-blue-400 underline">
+                                <p>{rowData.Source}</p>
+                                // </a>
                             )}
                         </div>
                     </div>
