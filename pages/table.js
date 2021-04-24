@@ -231,8 +231,8 @@ export default function Table() {
     ];
 
     const options = {
-        pageSize: 10,
-        pageSizeOptions: [10, 25, 50, 100],
+        pageSize: 100,
+        pageSizeOptions: [10, 25, 50, 100, 250, 500, 1000],
         showTitle: false,
         minBodyHeight: windowHeight,
         maxBodyHeight: windowHeight,
