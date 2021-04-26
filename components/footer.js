@@ -12,14 +12,19 @@ export default function Footer() {
     };
     return (
         <footer style={style}>
-            <div style={{ marginTop: "auto", paddingLeft: "12px", paddingRight: "12px" }}>
+            <div className="navbar-account" style={{ marginTop: "auto", paddingLeft: "12px", paddingRight: "12px" }}>
                 <a target="_blank" style={{ textDecoration: "none!important" }} href="https://www.twitter.com/covid19help_in">
-                    <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/twitter.png" alt="Picture of the author" width={32} height={32} />
+                    <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/twitter.png" alt="Follow us on Twitter" width={28} height={28} />
                 </a>
             </div>
-            <div style={{ marginTop: "auto", paddingLeft: "12px", paddingRight: "12px" }}>
+            <div className="navbar-account" style={{ marginTop: "auto", paddingLeft: "12px", paddingRight: "12px" }}>
                 <a target="_blank" style={{ textDecoration: "none!important" }} href="https://www.instagram.com/covid19help.in">
-                    <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/instagram.png" alt="Picture of the author" width={32} height={32} />
+                    <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/instagram.png" alt="Follow us on Instagram" width={28} height={28} />
+                </a>
+            </div>
+            <div className="navbar-account" style={{ marginTop: "auto", paddingLeft: "12px", paddingRight: "12px" }}>
+                <a target="_blank" style={{ textDecoration: "none!important" }} href="https://t.me/covidhelp123">
+                    <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/telegram.png" alt="Join our Telegram Channel" width={28} height={28} />
                 </a>
             </div>
         </footer>
