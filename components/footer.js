@@ -27,6 +27,11 @@ export default function Footer() {
                     <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/telegram.png" alt="Join our Telegram Channel" width={28} height={28} />
                 </a>
             </div>
+            <div className="navbar-account" style={{ marginTop: "auto", paddingLeft: "12px", paddingRight: "12px" }}>
+                <a target="_blank" style={{ textDecoration: "none!important" }} href="https://github.com/Covid19-Help-India">
+                    <Image style={{ paddingRight: "4px", paddingLeft: "4px" }} src="/github.png" alt="Contribute to our Github Repository" width={28} height={28} />
+                </a>
+            </div>
         </footer>
     );
 }
